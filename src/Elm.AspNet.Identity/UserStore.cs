@@ -167,9 +167,10 @@ namespace Elm.AspNet.Identity
             // TODO atm this method is used by UserManager.VerifyUser to get the user that is stored in database,
             // TODO which would erase any modification made to the cached user, so we need to clear the cache to avoid this
             connection.Cache.Clear();
-            return await connection.SelectAllFrom<TUser>()
-                                .Where(x => x.UserName == userName)
-                                .SingleOrDefaultAsync();         
+            var result = await connection.SelectAllFrom<TUser>()
+                                .Where(x => x.NormalizedUserName == userName)
+                                .SingleOrDefaultAsync();
+            return result;
         }
 
         public async Task<IdentityResult> UpdateAsync(TUser user, CancellationToken cancellationToken = default(CancellationToken))
@@ -623,7 +624,7 @@ namespace Elm.AspNet.Identity
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return (await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User.Id.Equals(user.Id)).ListAsync()).Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
+            return (await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user).ListAsync()).Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
         }
 
         public virtual async Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))

@@ -1,5 +1,5 @@
 ﻿{
-  "webroot": "wwwroot",
+  "webroot": ".",
   
   "version": "1.0.0-*",
   "description": "Elm.AspNet.Identity.Sample Class Library",
