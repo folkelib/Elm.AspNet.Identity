@@ -1,0 +1,15 @@
+﻿{
+  "Data": {
+    "IdentityConnection": { "ConnectionString": "Data Source=test.db" }
+  },
+  "DefaultAdminPassword": "YouShouldChangeThisPassword1!",
+  "DefaultAdminUsername": "Administrator",
+  "Identity": {
+    "Password": {
+      "RequireDigit": "false",
+      "RequireLowercase": "false",
+      "RequireUppercase": "false",
+      "RequireNonLetterOrDigit": "false"
+    }
+  }
+}
