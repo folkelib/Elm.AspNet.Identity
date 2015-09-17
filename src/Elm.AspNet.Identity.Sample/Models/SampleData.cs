@@ -26,7 +26,7 @@ namespace Elm.AspNet.Identity.Sample.Models
         /// <returns></returns>
         private static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
-            var options = serviceProvider.GetRequiredService<IOptions<IdentityDbContextOptions>>().Value;
+            var options = serviceProvider.GetRequiredService<IOptions<IdentityDbContextOptions>>().Options;
             const string adminRole = "Administrator";
 
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();

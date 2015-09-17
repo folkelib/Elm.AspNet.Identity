@@ -22,6 +22,8 @@ namespace Elm.AspNet.Identity
         public static void UpdateStringIdentityRoleSchema(this IFolkeConnection folkeConnection)
         {
             folkeConnection.CreateOrUpdateTable<IdentityRole>();
+            folkeConnection.CreateOrUpdateTable<IdentityUserRole<string>>();
+            folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<string>>();
         }
 
         public static void UpdateIdentityUserSchema<TKey>(this IFolkeConnection folkeConnection)
@@ -45,6 +47,8 @@ namespace Elm.AspNet.Identity
             where TKey: IEquatable<TKey>
         {
             folkeConnection.CreateOrUpdateTable<IdentityRole<TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUserRole<TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<TKey>>();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Elm.AspNet.Identity
     [Table("aspnet_Roles")]
     public class IdentityRole<TKey> where TKey : IEquatable<TKey>
     {
+        internal string ConcurrencyStamp;
+
         public IdentityRole()
             : this("")
         {
@@ -30,5 +32,6 @@ namespace Elm.AspNet.Identity
         [Key]
         public TKey Id { get; set; }
         public string Name { get; set; }
+        public string NormalizedName { get; internal set; }
     }
 }

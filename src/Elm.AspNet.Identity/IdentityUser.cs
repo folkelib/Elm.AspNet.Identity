@@ -27,7 +27,7 @@ namespace Elm.AspNet.Identity
         public IdentityUser()
         {
             Claims = new List<IdentityUserClaim<IdentityUser<TKey>, TKey>>();
-            Roles = new List<RoleUser>();
+            Roles = new List<IdentityUserRole<TKey>>();
             Logins = new List<IdentityUserLogin<IdentityUser<TKey>, TKey>>();
         }
 
@@ -49,7 +49,7 @@ namespace Elm.AspNet.Identity
         public int AccessFailedCount { get; set; }
         public bool TwoFactorEnabled { get; set; }
         [FolkeList(Join = "IdentityRole")]
-        public IList<RoleUser> Roles { get; set; }
+        public IList<IdentityUserRole<TKey>> Roles { get; set; }
         [FolkeList(Join = "Claims")]
         public IList<IdentityUserClaim<IdentityUser<TKey>, TKey>> Claims { get; set; }
         [FolkeList(Join = "Logins")]
@@ -57,5 +57,6 @@ namespace Elm.AspNet.Identity
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public string NormalizedUserName { get; set; }
+        public string NormalizedEmail { get; set; }
     }
 }

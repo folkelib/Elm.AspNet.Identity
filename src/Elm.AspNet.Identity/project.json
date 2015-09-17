@@ -6,10 +6,9 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Folke.Elm": "1.1.0-beta-20850053",
+    "Folke.Elm": "1.1.0-beta-20850842",
     "Microsoft.AspNet.Identity": "3.0.0-beta7"
   },
-
   "frameworks": {
     "dnx451": { },
     "dnxcore50": {

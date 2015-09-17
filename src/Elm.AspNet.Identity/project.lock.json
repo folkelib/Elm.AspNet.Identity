@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "Folke.Elm/1.1.0-beta-20850053": {
+      "Folke.Elm/1.1.0-beta-20850842": {
         "type": "package",
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -482,7 +482,7 @@
       }
     },
     "DNXCore,Version=v5.0": {
-      "Folke.Elm/1.1.0-beta-20850053": {
+      "Folke.Elm/1.1.0-beta-20850842": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.0",
@@ -1904,12 +1904,12 @@
     }
   },
   "libraries": {
-    "Folke.Elm/1.1.0-beta-20850053": {
+    "Folke.Elm/1.1.0-beta-20850842": {
       "type": "package",
-      "sha512": "lHVGLsTHSq51xMFGyP4SZAJjwQ3Y6HK4urzFKqZj5jPZcQipLHFk8YiMz0BaaEFJSwJspGfDZlcxgeLxaKTc/w==",
+      "sha512": "OJfsSrySEnW2eUBjm5yGW6/mvo8t7wxys/nYPfxsROe2LzBSxKqDbQJW6aTSeoKHrUHEJKvsHQnppALAZEmJug==",
       "files": [
-        "Folke.Elm.1.1.0-beta-20850053.nupkg",
-        "Folke.Elm.1.1.0-beta-20850053.nupkg.sha512",
+        "Folke.Elm.1.1.0-beta-20850842.nupkg",
+        "Folke.Elm.1.1.0-beta-20850842.nupkg.sha512",
         "Folke.Elm.nuspec",
         "lib/dnx451/Folke.Elm.dll",
         "lib/dnx451/Folke.Elm.xml",
@@ -3835,7 +3835,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Folke.Elm >= 1.1.0-beta-20850053",
+      "Folke.Elm >= 1.1.0-beta-20850842",
       "Microsoft.AspNet.Identity >= 3.0.0-beta7"
     ],
     "DNX,Version=v4.5.1": [],
