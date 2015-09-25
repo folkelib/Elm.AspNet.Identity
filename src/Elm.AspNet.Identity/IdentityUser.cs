@@ -48,11 +48,11 @@ namespace Elm.AspNet.Identity
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        [FolkeList(Join = "IdentityRole")]
+        [Select(IncludeReference = "IdentityRole")]
         public IList<IdentityUserRole<TKey>> Roles { get; set; }
-        [FolkeList(Join = "Claims")]
+        [Select(IncludeReference = "Claims")]
         public IList<IdentityUserClaim<IdentityUser<TKey>, TKey>> Claims { get; set; }
-        [FolkeList(Join = "Logins")]
+        [Select(IncludeReference = "Logins")]
         public IList<IdentityUserLogin<IdentityUser<TKey>, TKey>> Logins { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }

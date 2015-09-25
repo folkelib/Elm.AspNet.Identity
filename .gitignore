@@ -196,3 +196,5 @@ FakesAssemblies/
 *.opt
 *.lock.json
 src/Elm.AspNet.Identity.Sample/test.db
+*.ncrunchsolution
+*.lock.json

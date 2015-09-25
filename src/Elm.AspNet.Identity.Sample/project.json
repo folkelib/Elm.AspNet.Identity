@@ -21,7 +21,7 @@
     "Microsoft.AspNet.Authentication.Twitter": "1.0.0-beta7",
     "Microsoft.AspNet.Authentication.Google": "1.0.0-beta7",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-    "Folke.Elm.Sqlite": "1.1.0-beta-20850842"
+    "Folke.Elm.Sqlite": "1.1.0-beta-20930552"
   },
   "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:41532",

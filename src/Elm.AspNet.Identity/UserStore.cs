@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Folke.Elm;
+using Folke.Elm.Fluent;
 using Microsoft.AspNet.Identity;
 
 namespace Elm.AspNet.Identity
@@ -461,7 +462,7 @@ namespace Elm.AspNet.Identity
                 await
                     connection.SelectAllFrom<IdentityUserLogin<TUser, TKey>>()
                         .Where(x => x.User == user)
-                        .ListAsync();
+                        .ToListAsync();
             return results.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey, x.ProviderDisplayName)).ToList();
         }
 
@@ -565,7 +566,7 @@ namespace Elm.AspNet.Identity
                         .From()
                         .LeftJoinOnId(x => x.Role)
                         .Where(x => x.User == user)
-                        .ListAsync()).Select(x => x.Role.Name).ToList();
+                        .ToListAsync()).Select(x => x.Role.Name).ToList();
         }
 
         /// <summary>
@@ -610,7 +611,7 @@ namespace Elm.AspNet.Identity
             {
                 IdentityUserRole<TKey> userRole = null;
                 var list = await connection.Select<TUser>()
-                    .All().From().LeftJoin(x => userRole).On(x => x.Id.Equals(userRole.User.Id)).Where(x => userRole.Id.Equals(role.Id)).ListAsync();
+                    .All().From().LeftJoin(x => userRole).On(x => x.Id.Equals(userRole.User.Id)).Where(x => userRole.Id.Equals(role.Id)).ToListAsync();
                 return list.ToList();
             }
             return new List<TUser>();
@@ -624,7 +625,7 @@ namespace Elm.AspNet.Identity
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return (await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user).ListAsync()).Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
+            return (await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user).ToListAsync()).Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
         }
 
         public virtual async Task AddClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
@@ -660,7 +661,7 @@ namespace Elm.AspNet.Identity
                 throw new ArgumentNullException(nameof(newClaim));
             }
 
-            var matchedClaims = await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ListAsync();
+            var matchedClaims = await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToListAsync();
             foreach (var matchedClaim in matchedClaims)
             {
                 matchedClaim.ClaimValue = newClaim.Value;
@@ -682,7 +683,7 @@ namespace Elm.AspNet.Identity
             }
             foreach (var claim in claims)
             {
-                var matchedClaims = await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ListAsync();
+                var matchedClaims = await connection.SelectAllFrom<IdentityUserClaim<TUser, TKey>>().Where(uc => uc.User == user && uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToListAsync();
                 foreach (var c in matchedClaims)
                 {
                     await connection.DeleteAsync(c);
@@ -714,7 +715,7 @@ namespace Elm.AspNet.Identity
                         .LeftJoin(x => userClaim)
                         .On(x => x == userClaim.User)
                         .Where(x => userClaim.ClaimType == claim.Type && userClaim.ClaimValue == claim.Value)
-                        .ListAsync();
+                        .ToListAsync();
             return query;
         }
     }

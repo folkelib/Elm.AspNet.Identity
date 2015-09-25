@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Folke.Elm;
+using Folke.Elm.Fluent;
 using Microsoft.AspNet.Identity;
 
 namespace Elm.AspNet.Identity
@@ -208,7 +209,7 @@ namespace Elm.AspNet.Identity
                 throw new ArgumentNullException(nameof(role));
             }
 
-            var claims = await Context.SelectAllFrom<IdentityRoleClaim<TKey>>().Where(rc => rc.RoleId.Equals(role.Id)).ListAsync();
+            var claims = await Context.SelectAllFrom<IdentityRoleClaim<TKey>>().Where(rc => rc.RoleId.Equals(role.Id)).ToListAsync();
             return claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
         }
 
@@ -238,7 +239,7 @@ namespace Elm.AspNet.Identity
             {
                 throw new ArgumentNullException(nameof(claim));
             }
-            var claims = await Context.SelectAllFrom<IdentityRoleClaim<TKey>>().Where(rc => rc.RoleId.Equals(role.Id) && rc.ClaimValue == claim.Value && rc.ClaimType == claim.Type).ListAsync();
+            var claims = await Context.SelectAllFrom<IdentityRoleClaim<TKey>>().Where(rc => rc.RoleId.Equals(role.Id) && rc.ClaimValue == claim.Value && rc.ClaimType == claim.Type).ToListAsync();
             foreach (var c in claims)
             {
                 await Context.DeleteAsync(c);
