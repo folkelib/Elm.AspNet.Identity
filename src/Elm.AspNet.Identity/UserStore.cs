@@ -562,6 +562,7 @@ namespace Elm.AspNet.Identity
             return
                 (await
                     connection.Select<IdentityUserRole<TKey>>()
+                        .Value(x => x.Role)
                         .Value(x => x.Role.Name)
                         .From()
                         .LeftJoinOnId(x => x.Role)
