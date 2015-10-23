@@ -26,7 +26,8 @@ namespace Elm.AspNet.Identity.Sample.Models
         /// <returns></returns>
         private static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
-            var options = serviceProvider.GetRequiredService<IOptions<IdentityDbContextOptions>>().Options;
+            var options = serviceProvider.GetRequiredService<IOptions<IdentityDbContextOptions>>();
+
             const string adminRole = "Administrator";
 
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -36,11 +37,11 @@ namespace Elm.AspNet.Identity.Sample.Models
                 await roleManager.CreateAsync(new IdentityRole { Name =  adminRole });
             }
 
-            var user = await userManager.FindByNameAsync(options.DefaultAdminUserName);
+            var user = await userManager.FindByNameAsync(options.Value.DefaultAdminUserName);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = options.DefaultAdminUserName };
-                await userManager.CreateAsync(user, options.DefaultAdminPassword);
+                user = new ApplicationUser { UserName = options.Value.DefaultAdminUserName };
+                await userManager.CreateAsync(user, options.Value.DefaultAdminPassword);
                 await userManager.AddToRoleAsync(user, adminRole);
                 await userManager.AddClaimAsync(user, new Claim("ManageStore", "Allowed"));
             }

@@ -21,7 +21,8 @@ namespace Elm.AspNet.Identity.Sample
             * Below code demonstrates usage of multiple configuration sources. For instance a setting say 'setting1' is found in both the registered sources,
             * then the later source will win. By this way a Local config can be overridden by a different setting while deployed remotely.
             */
-            var builder = new ConfigurationBuilder(applicationEnvironment.ApplicationBasePath)
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(applicationEnvironment.ApplicationBasePath)
                 .AddJsonFile("LocalConfig.json")
                 .AddEnvironmentVariables(); //All environment variables in the process's context flow in as configuration values.
 
@@ -56,21 +57,6 @@ namespace Elm.AspNet.Identity.Sample
                     // .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
-            services.ConfigureFacebookAuthentication(options =>
-            {
-                options.AppId = "901611409868059";
-                options.AppSecret = "4aa3c530297b1dcebc8860334b39668b";
-            });
-            services.ConfigureGoogleAuthentication(options =>
-            {
-                options.ClientId = "514485782433-fr3ml6sq0imvhi8a7qir0nb46oumtgn9.apps.googleusercontent.com";
-                options.ClientSecret = "V2nDD9SkFbvLTqAUBWBBxYAL";
-            });
-            services.ConfigureTwitterAuthentication(options =>
-            {
-                options.ConsumerKey = "BSdJJ0CrDuvEhpkchnukXZBUv";
-                options.ConsumerSecret = "xKUNuKhsRdHD03eLn67xhPAyE1wFFEndFo1X2UJaK2m1jdAxf4";
-            });
             services.AddMvc();
         }
 
@@ -78,9 +64,21 @@ namespace Elm.AspNet.Identity.Sample
         {
             app.UseStaticFiles()
                 .UseIdentity()
-                .UseFacebookAuthentication()
-                .UseGoogleAuthentication()
-                .UseTwitterAuthentication()
+                .UseFacebookAuthentication(options =>
+                {
+                    options.AppId = "901611409868059";
+                    options.AppSecret = "4aa3c530297b1dcebc8860334b39668b";
+                })
+                .UseGoogleAuthentication(options =>
+                {
+                    options.ClientId = "514485782433-fr3ml6sq0imvhi8a7qir0nb46oumtgn9.apps.googleusercontent.com";
+                    options.ClientSecret = "V2nDD9SkFbvLTqAUBWBBxYAL";
+                })
+                .UseTwitterAuthentication(options =>
+                {
+                    options.ConsumerKey = "BSdJJ0CrDuvEhpkchnukXZBUv";
+                    options.ConsumerSecret = "xKUNuKhsRdHD03eLn67xhPAyE1wFFEndFo1X2UJaK2m1jdAxf4";
+                })
                 .UseMvc(routes =>
                 {
                     routes.MapRoute(

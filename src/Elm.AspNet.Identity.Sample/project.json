@@ -1,6 +1,6 @@
 ﻿{
   "webroot": ".",
-  
+
   "version": "1.0.0-*",
   "description": "Elm.AspNet.Identity.Sample Class Library",
   "authors": [ "Sidoine" ],
@@ -9,33 +9,33 @@
   "licenseUrl": "",
 
   "dependencies": {
-    "Microsoft.AspNet.Mvc": "6.0.0-beta7",
+    "Microsoft.AspNet.Mvc": "6.0.0-beta8",
     "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
-    "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
-    "Microsoft.Framework.DependencyInjection": "1.0.0-beta7",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta7",
-    "Microsoft.AspNet.Mvc.WebApiCompatShim": "6.0.0-beta7",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+    "Microsoft.Framework.DependencyInjection": "1.0.0-beta8",
+    "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
+    "Microsoft.AspNet.Mvc.WebApiCompatShim": "6.0.0-beta8",
     "Elm.AspNet.Identity": "",
-    "Microsoft.AspNet.Authentication.Facebook": "1.0.0-beta7",
-    "Microsoft.AspNet.Authentication.Twitter": "1.0.0-beta7",
-    "Microsoft.AspNet.Authentication.Google": "1.0.0-beta7",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-    "Folke.Elm.Sqlite": "1.1.0-beta-20930552"
+    "Microsoft.AspNet.Authentication.Facebook": "1.0.0-beta8",
+    "Microsoft.AspNet.Authentication.Twitter": "1.0.0-beta8",
+    "Microsoft.AspNet.Authentication.Google": "1.0.0-beta8",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+    "Folke.Elm.Sqlite": "1.1.0-beta-21210912"
   },
   "commands": {
-        "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:41532",
+    "web": "Microsoft.AspNet.Server.Kestrel",
         "run": "run server.urls=http://localhost:41532"
     },
   "frameworks": {
     "dnx451": { },
     "dnxcore50": {
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23225",
-        "System.Collections": "4.0.11-beta-23225",
-        "System.Linq": "4.0.1-beta-23225",
-        "System.Runtime": "4.0.21-beta-23225",
-        "System.Threading": "4.0.11-beta-23225"
+        "Microsoft.CSharp": "4.0.1-beta-23409",
+        "System.Collections": "4.0.11-beta-23409",
+        "System.Linq": "4.0.1-beta-23409",
+        "System.Runtime": "4.0.21-beta-23409",
+        "System.Threading": "4.0.11-beta-23409"
       }
     }
   },
