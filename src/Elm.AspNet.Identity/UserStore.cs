@@ -12,7 +12,8 @@ using Microsoft.AspNet.Identity;
 
 namespace Elm.AspNet.Identity
 {
-    public class UserStore<T> : UserStore<T, string> where T : IdentityUser<string>, new()
+    public class UserStore<T> : UserStore<T, string> 
+        where T : IdentityUser<T, string>, new()
     {
         public UserStore(IFolkeConnection connection) : base(connection)
         {
@@ -29,7 +30,7 @@ namespace Elm.AspNet.Identity
         IUserSecurityStampStore<TUser>,
         IUserRoleStore<TUser>,
         IUserClaimStore<TUser>
-        where TUser : IdentityUser<TKey>, new()
+        where TUser : IdentityUser<TUser, TKey>, new()
         where TKey: IEquatable<TKey>
     {
         private readonly IFolkeConnection connection;
@@ -511,7 +512,7 @@ namespace Elm.AspNet.Identity
             {
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, "Role {0} not found", roleName));
             }
-            var ur = new IdentityUserRole<TKey> { User = user, Role = roleEntity };
+            var ur = new IdentityUserRole<TUser, TKey> { User = user, Role = roleEntity };
             await connection.SaveAsync(ur);
         }
 
@@ -537,7 +538,7 @@ namespace Elm.AspNet.Identity
             var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where((r => r.Name == roleName)).SingleOrDefaultAsync();
             if (roleEntity != null)
             {
-                var userRole = await connection.SelectAllFrom<IdentityUserRole<TKey>>().Where(r => roleEntity == r.Role && r.User == user).SingleOrDefaultAsync();
+                var userRole = await connection.SelectAllFrom<IdentityUserRole<TUser, TKey>>().Where(r => roleEntity == r.Role && r.User == user).SingleOrDefaultAsync();
                 if (userRole != null)
                 {
                     await connection.DeleteAsync(userRole);
@@ -561,7 +562,7 @@ namespace Elm.AspNet.Identity
             }
             return
                 (await
-                    connection.Select<IdentityUserRole<TKey>>()
+                    connection.Select<IdentityUserRole<TUser, TKey>>()
                         .Value(x => x.Role)
                         .Value(x => x.Role.Name)
                         .From()
@@ -592,7 +593,7 @@ namespace Elm.AspNet.Identity
             var role = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.Name == roleName).SingleOrDefaultAsync();
             if (role != null)
             {
-                return (await connection.SelectAllFrom<IdentityUserRole<TKey>>().Where(ur => ur.Role == role && ur.User == user).SingleOrDefaultAsync()) != null;
+                return (await connection.SelectAllFrom<IdentityUserRole<TUser, TKey>>().Where(ur => ur.Role == role && ur.User == user).SingleOrDefaultAsync()) != null;
             }
             return false;
         }
@@ -610,7 +611,7 @@ namespace Elm.AspNet.Identity
 
             if (role != null)
             {
-                IdentityUserRole<TKey> userRole = null;
+                IdentityUserRole<TUser, TKey> userRole = null;
                 var list = await connection.Select<TUser>()
                     .All().From().LeftJoin(x => userRole).On(x => x.Id.Equals(userRole.User.Id)).Where(x => userRole.Id.Equals(role.Id)).ToListAsync();
                 return list.ToList();

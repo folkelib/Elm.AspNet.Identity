@@ -12,7 +12,8 @@ namespace Elm.AspNet.Identity
             folkeConnection.CreateOrUpdateTable<IdentityUserLogin<IdentityUser, string>>();
         }
 
-        public static void UpdateStringIdentityUserSchema<TUser>(this IFolkeConnection folkeConnection) where TUser : IdentityUser, new()
+        public static void UpdateStringIdentityUserSchema<TUser>(this IFolkeConnection folkeConnection) 
+            where TUser : IdentityUser<TUser, string>, new()
         {
             folkeConnection.CreateOrUpdateTable<TUser>();
             folkeConnection.CreateOrUpdateTable<IdentityUserClaim<TUser, string>>();
@@ -22,20 +23,20 @@ namespace Elm.AspNet.Identity
         public static void UpdateStringIdentityRoleSchema(this IFolkeConnection folkeConnection)
         {
             folkeConnection.CreateOrUpdateTable<IdentityRole>();
-            folkeConnection.CreateOrUpdateTable<IdentityUserRole<string>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUserRole<IdentityUser, string>>();
             folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<string>>();
         }
 
         public static void UpdateIdentityUserSchema<TKey>(this IFolkeConnection folkeConnection)
             where TKey: IEquatable<TKey>
         {
-            folkeConnection.CreateOrUpdateTable<IdentityUser<TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUser< TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityUserClaim<IdentityUser<TKey>, TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityUserLogin<IdentityUser<TKey>, TKey>>();
         }
 
         public static void UpdateIdentityUserSchema<TKey, TUser>(this IFolkeConnection folkeConnection)
-            where TUser: IdentityUser<TKey>, new()
+            where TUser: IdentityUser<TUser, TKey>, new()
             where TKey: IEquatable<TKey>
         {
             folkeConnection.CreateOrUpdateTable<TUser>();
@@ -43,11 +44,12 @@ namespace Elm.AspNet.Identity
             folkeConnection.CreateOrUpdateTable<IdentityUserLogin<TUser, TKey>>();
         }
 
-        public static void UpdateIdentityRoleSchema<TKey>(this IFolkeConnection folkeConnection)
+        public static void UpdateIdentityRoleSchema<TKey, TUser>(this IFolkeConnection folkeConnection)
             where TKey: IEquatable<TKey>
+            where TUser: IdentityUser<TUser, TKey>
         {
             folkeConnection.CreateOrUpdateTable<IdentityRole<TKey>>();
-            folkeConnection.CreateOrUpdateTable<IdentityUserRole<TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUserRole<TUser, TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<TKey>>();
         }
     }
