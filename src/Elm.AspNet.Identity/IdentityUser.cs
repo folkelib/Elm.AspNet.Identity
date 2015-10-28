@@ -7,7 +7,7 @@ using Folke.Elm.Mapping;
 namespace Elm.AspNet.Identity
 {
     [Table("aspnet_Users")]
-    public class IdentityUser : IdentityUser<string>
+    public class IdentityUser : IdentityUser<IdentityUser, string>
     {
         public IdentityUser()
         {
@@ -22,13 +22,22 @@ namespace Elm.AspNet.Identity
     }
 
     [Table("aspnet_Users")]
-    public class IdentityUser<TKey> where TKey : IEquatable<TKey>
+    public class IdentityUser<TKey> : IdentityUser<IdentityUser<TKey>, TKey>
+        where TKey : IEquatable<TKey>
+    {
+        
+    }
+
+    [Table("aspnet_Users")]
+    public class IdentityUser<TUser, TKey> 
+        where TKey : IEquatable<TKey>
+        where TUser : IdentityUser<TUser, TKey>
     {
         public IdentityUser()
         {
-            Claims = new List<IdentityUserClaim<IdentityUser<TKey>, TKey>>();
-            Roles = new List<IdentityUserRole<TKey>>();
-            Logins = new List<IdentityUserLogin<IdentityUser<TKey>, TKey>>();
+            Claims = new List<IdentityUserClaim<TUser, TKey>>();
+            Roles = new List<IdentityUserRole<TUser, TKey>>();
+            Logins = new List<IdentityUserLogin<TUser, TKey>>();
         }
 
         public IdentityUser(string userName)
@@ -49,11 +58,11 @@ namespace Elm.AspNet.Identity
         public int AccessFailedCount { get; set; }
         public bool TwoFactorEnabled { get; set; }
         [Select(IncludeReference = "IdentityRole")]
-        public IList<IdentityUserRole<TKey>> Roles { get; set; }
+        public IList<IdentityUserRole<TUser, TKey>> Roles { get; set; }
         [Select(IncludeReference = "Claims")]
-        public IList<IdentityUserClaim<IdentityUser<TKey>, TKey>> Claims { get; set; }
+        public IList<IdentityUserClaim<TUser, TKey>> Claims { get; set; }
         [Select(IncludeReference = "Logins")]
-        public IList<IdentityUserLogin<IdentityUser<TKey>, TKey>> Logins { get; set; }
+        public IList<IdentityUserLogin<TUser, TKey>> Logins { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public string NormalizedUserName { get; set; }

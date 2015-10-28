@@ -6,7 +6,7 @@ namespace Elm.AspNet.Identity
 {
     [Table("aspnet_UserClaims")]
     public class IdentityUserClaim<TUser, TKey> 
-        where TUser: IdentityUser<TKey>
+        where TUser: IdentityUser<TUser, TKey>
         where TKey : IEquatable<TKey>
     {
         [Key]
