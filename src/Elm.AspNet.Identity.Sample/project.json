@@ -21,7 +21,7 @@
     "Microsoft.AspNet.Authentication.Twitter": "1.0.0-beta8",
     "Microsoft.AspNet.Authentication.Google": "1.0.0-beta8",
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
-    "Folke.Elm.Sqlite": "1.1.0-beta-21261359"
+    "Folke.Elm.Sqlite": "1.1.0-beta-*"
   },
   "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel",
