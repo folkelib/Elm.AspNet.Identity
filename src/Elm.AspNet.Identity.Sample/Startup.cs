@@ -7,16 +7,17 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity;
 using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Elm.AspNet.Identity.Sample
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env, IApplicationEnvironment applicationEnvironment)
+        public Startup()
         {
+            var applicationEnvironment = Microsoft.Extensions.PlatformAbstractions.PlatformServices.Default.Application;
             /*
             * Below code demonstrates usage of multiple configuration sources. For instance a setting say 'setting1' is found in both the registered sources,
             * then the later source will win. By this way a Local config can be overridden by a different setting while deployed remotely.
@@ -38,22 +39,19 @@ namespace Elm.AspNet.Identity.Sample
             services.AddSingleton<IDatabaseDriver, SqliteDriver>();
             services.AddSingleton<IMapper, Mapper>();
             services.AddScoped<IFolkeConnection>(provider => new FolkeConnection(provider.GetService<IDatabaseDriver>(), provider.GetService<IMapper>(), connectionString));
-        //services.AddEntityFramework()
-        //        .AddSqlServer()
-        //        .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:IdentityConnection:ConnectionString"]));
-        services.Configure<IdentityDbContextOptions>(options =>
-        {
-            options.DefaultAdminUserName = Configuration["DefaultAdminUsername"];
-            options.DefaultAdminPassword = Configuration["DefaultAdminPassword"];
-        });
-            services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-            services.AddScoped<IRoleStore<IdentityRole>, RoleStore<IdentityRole>>();
 
-        var session = new FolkeConnection(new SqliteDriver(), new Mapper(), connectionString);
-        session.UpdateStringIdentityUserSchema<ApplicationUser>();
-        session.UpdateStringIdentityRoleSchema();
+            services.Configure<IdentityDbContextOptions>(options =>
+            {
+                options.DefaultAdminUserName = Configuration["DefaultAdminUsername"];
+                options.DefaultAdminPassword = Configuration["DefaultAdminPassword"];
+            });
 
-        services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddElmIdentity<ApplicationUser>();
+            var session = new FolkeConnection(new SqliteDriver(), new Mapper(), connectionString);
+            session.UpdateStringIdentityUserSchema<ApplicationUser>();
+            session.UpdateStringIdentityRoleSchema();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                     // .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 

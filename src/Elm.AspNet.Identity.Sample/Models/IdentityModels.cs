@@ -1,6 +1,6 @@
 ﻿namespace Elm.AspNet.Identity.Sample.Models
 {
-    public class ApplicationUser : IdentityUser { }
+    public class ApplicationUser : IdentityUser<ApplicationUser, string> { }
 
     public class IdentityDbContextOptions
     {

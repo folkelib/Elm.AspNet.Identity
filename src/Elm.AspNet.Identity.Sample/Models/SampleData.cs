@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Folke.Elm;
 using Microsoft.AspNet.Identity;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.OptionsModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Elm.AspNet.Identity.Sample.Models
 {
