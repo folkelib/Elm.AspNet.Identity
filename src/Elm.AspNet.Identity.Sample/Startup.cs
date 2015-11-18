@@ -34,12 +34,7 @@ namespace Elm.AspNet.Identity.Sample
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration["Data:IdentityConnection:ConnectionString"];
-            Debug.Assert(connectionString != null);
-            services.AddSingleton<IDatabaseDriver, SqliteDriver>();
-            services.AddSingleton<IMapper, Mapper>();
-            services.AddScoped<IFolkeConnection>(provider => new FolkeConnection(provider.GetService<IDatabaseDriver>(), provider.GetService<IMapper>(), connectionString));
-
+            services.AddElm<SqliteDriver>(options => options.ConnectionString = Configuration["Data:IdentityConnection:ConnectionString"]);
             services.Configure<IdentityDbContextOptions>(options =>
             {
                 options.DefaultAdminUserName = Configuration["DefaultAdminUsername"];
@@ -47,10 +42,7 @@ namespace Elm.AspNet.Identity.Sample
             });
 
             services.AddElmIdentity<ApplicationUser>();
-            var session = new FolkeConnection(new SqliteDriver(), new Mapper(), connectionString);
-            session.UpdateStringIdentityUserSchema<ApplicationUser>();
-            session.UpdateStringIdentityRoleSchema();
-
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     // .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
@@ -84,6 +76,10 @@ namespace Elm.AspNet.Identity.Sample
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
                 });
+
+            var session = app.ApplicationServices.GetService<IFolkeConnection>();
+            session.UpdateStringIdentityUserSchema<ApplicationUser>();
+            session.UpdateStringIdentityRoleSchema();
 
             //Populates the Admin user and role
             SampleData.InitializeIdentityDatabaseAsync(app.ApplicationServices).Wait();
