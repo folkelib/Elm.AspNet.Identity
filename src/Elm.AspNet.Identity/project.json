@@ -1,10 +1,10 @@
 {
   "version": "1.0.0-*",
-  "description": "Folke.AspNet.Identity.Orm Class Library",
+  "description": "Microsoft.AspNet.Identity stores implementation for Folke.Elm",
   "authors": [ "Sidoine" ],
   "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "projectUrl": "https://github.com/folkelib/Elm.AspNet.Identity",
+  "licenseUrl": "http://opensource.org/licenses/MIT",
   "dependencies": {
     "Folke.Elm": "1.1.0-beta-*",
     "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
