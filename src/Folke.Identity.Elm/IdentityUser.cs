@@ -6,8 +6,13 @@ using Folke.Elm.Mapping;
 
 namespace Folke.Identity.Elm
 {
+    /// <summary>
+    /// An implementation that can be used as is.
+    /// Note that it is sealed. If you need to add custom members
+    /// to the class, you can't use this class.
+    /// </summary>
     [Table("aspnet_Users")]
-    public class IdentityUser : IdentityUser<IdentityUser, string>
+    public sealed class IdentityUser : IdentityUser<IdentityUser, string>
     {
         public IdentityUser()
         {
@@ -22,7 +27,7 @@ namespace Folke.Identity.Elm
     }
 
     [Table("aspnet_Users")]
-    public class IdentityUser<TKey> : IdentityUser<IdentityUser<TKey>, TKey>
+    public sealed class IdentityUser<TKey> : IdentityUser<IdentityUser<TKey>, TKey>
         where TKey : IEquatable<TKey>
     {
         

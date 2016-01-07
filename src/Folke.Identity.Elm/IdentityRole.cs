@@ -16,8 +16,6 @@ namespace Folke.Identity.Elm
     [Table("aspnet_Roles")]
     public class IdentityRole<TKey> where TKey : IEquatable<TKey>
     {
-        internal string ConcurrencyStamp;
-
         public IdentityRole()
             : this("")
         {
@@ -32,5 +30,6 @@ namespace Folke.Identity.Elm
         public TKey Id { get; set; }
         public string Name { get; set; }
         public string NormalizedName { get; internal set; }
+        public string ConcurrencyStamp { get; set; }
     }
 }

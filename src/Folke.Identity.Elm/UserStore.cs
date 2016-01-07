@@ -29,7 +29,8 @@ namespace Folke.Identity.Elm
         IUserLoginStore<TUser>,
         IUserSecurityStampStore<TUser>,
         IUserRoleStore<TUser>,
-        IUserClaimStore<TUser>
+        IUserClaimStore<TUser>,
+        IQueryableUserStore<TUser>
         where TUser : IdentityUser<TUser, TKey>, new()
         where TKey: IEquatable<TKey>
     {
@@ -133,7 +134,7 @@ namespace Folke.Identity.Elm
             return IdentityResult.Success;
         }
 
-        private static PreparedLoadBuilder<TUser> findById = new PreparedLoadBuilder<TUser>();
+        private static readonly PreparedLoadBuilder<TUser> findById = new PreparedLoadBuilder<TUser>();
 
         public async Task<TUser> FindByIdAsync(string userId, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -497,7 +498,7 @@ namespace Folke.Identity.Elm
         /// <param name="roleName"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task AddToRoleAsync(TUser user, string roleName, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task AddToRoleAsync(TUser user, string roleName, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -525,7 +526,7 @@ namespace Folke.Identity.Elm
         /// <param name="roleName"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task RemoveFromRoleAsync(TUser user, string roleName, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task RemoveFromRoleAsync(TUser user, string roleName, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -621,7 +622,7 @@ namespace Folke.Identity.Elm
             return new List<TUser>();
         }
 
-        public async virtual Task<IList<Claim>> GetClaimsAsync(TUser user, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<IList<Claim>> GetClaimsAsync(TUser user, CancellationToken cancellationToken = default(CancellationToken))
         {
             ThrowIfDisposed();
             if (user == null)
@@ -649,7 +650,7 @@ namespace Folke.Identity.Elm
             }
         }
 
-        public async virtual Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task ReplaceClaimAsync(TUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken = default(CancellationToken))
         {
             ThrowIfDisposed();
             if (user == null)
@@ -674,7 +675,7 @@ namespace Folke.Identity.Elm
             }
         }
 
-        public async virtual Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task RemoveClaimsAsync(TUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken = default(CancellationToken))
         {
             ThrowIfDisposed();
             if (user == null)
@@ -701,7 +702,7 @@ namespace Folke.Identity.Elm
         /// <param name="claim"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async virtual Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<IList<TUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -722,5 +723,7 @@ namespace Folke.Identity.Elm
                         .ToListAsync();
             return query;
         }
+
+        public IQueryable<TUser> Users => connection.Query<TUser>();
     }
 }

@@ -15,6 +15,16 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        public static IServiceCollection AddElmIdentity<TUser, TRole, TKey>(this IServiceCollection services)
+            where TUser : IdentityUser<TUser, TKey>, new()
+            where TKey : IEquatable<TKey>
+            where TRole : IdentityRole<TKey>, new()
+        {
+            services.AddScoped<IUserStore<TUser>, UserStore<TUser, TKey>>();
+            services.AddScoped<IRoleStore<TRole>, RoleStore<TRole, TKey>>();
+            return services;
+        }
+
         public static IServiceCollection AddElmIdentity<TUser>(this IServiceCollection services)
             where TUser : IdentityUser<TUser, string>, new()
         {

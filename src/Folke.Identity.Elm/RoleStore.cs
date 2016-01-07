@@ -18,7 +18,7 @@ namespace Folke.Identity.Elm
     }
     
     public class RoleStore<TRole, TKey> :
-        IRoleClaimStore<TRole>
+        IRoleClaimStore<TRole>, IQueryableRoleStore<TRole>
         where TRole : IdentityRole<TKey>, new()
         where TKey : IEquatable<TKey>
     {
@@ -46,7 +46,7 @@ namespace Folke.Identity.Elm
         /// </summary>
         public bool AutoSaveChanges { get; set; } = true;
         
-        public async virtual Task<IdentityResult> CreateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<IdentityResult> CreateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -58,7 +58,7 @@ namespace Folke.Identity.Elm
             return IdentityResult.Success;
         }
 
-        public async virtual Task<IdentityResult> UpdateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<IdentityResult> UpdateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -71,7 +71,7 @@ namespace Folke.Identity.Elm
             return IdentityResult.Success;
         }
 
-        public async virtual Task<IdentityResult> DeleteAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual async Task<IdentityResult> DeleteAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -245,5 +245,7 @@ namespace Folke.Identity.Elm
                 await Context.DeleteAsync(c);
             }
         }
+
+        public IQueryable<TRole> Roles => Context.Query<TRole>();
     }
 }
