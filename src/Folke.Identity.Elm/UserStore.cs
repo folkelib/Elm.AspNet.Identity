@@ -239,7 +239,7 @@ namespace Folke.Identity.Elm
             }
             
             return await connection.SelectAllFrom<TUser>()
-                                .Where(x => x.Email == email)
+                                .Where(x => x.NormalizedEmail == email)
                                 .SingleOrDefaultAsync();            
         }
 
