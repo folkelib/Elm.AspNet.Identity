@@ -5,6 +5,10 @@ namespace Folke.Identity.Elm
 {
     public static class FolkeConnectionExtensions
     {
+        /// <summary>
+        /// Creates the table for a default identity with a string a the key
+        /// </summary>
+        /// <param name="folkeConnection"></param>
         public static void UpdateStringIdentityUserSchema(this IFolkeConnection folkeConnection)
         {
             folkeConnection.CreateOrUpdateTable<IdentityUser>();
@@ -12,6 +16,11 @@ namespace Folke.Identity.Elm
             folkeConnection.CreateOrUpdateTable<IdentityUserLogin<IdentityUser, string>>();
         }
 
+        /// <summary>
+        /// Creates the table for an identity of type TUser
+        /// </summary>
+        /// <typeparam name="TUser"></typeparam>
+        /// <param name="folkeConnection"></param>
         public static void UpdateStringIdentityUserSchema<TUser>(this IFolkeConnection folkeConnection) 
             where TUser : IdentityUser<TUser, string>, new()
         {
