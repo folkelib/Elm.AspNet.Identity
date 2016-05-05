@@ -62,12 +62,9 @@ namespace Folke.Identity.Elm
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        [Select(IncludeReference = "IdentityRole")]
-        public IList<IdentityUserRole<TUser, TKey>> Roles { get; set; }
-        [Select(IncludeReference = "Claims")]
-        public IList<IdentityUserClaim<TUser, TKey>> Claims { get; set; }
-        [Select(IncludeReference = "Logins")]
-        public IList<IdentityUserLogin<TUser, TKey>> Logins { get; set; }
+        public IReadOnlyList<IdentityUserRole<TUser, TKey>> Roles { get; set; }
+        public IReadOnlyList<IdentityUserClaim<TUser, TKey>> Claims { get; set; }
+        public IReadOnlyList<IdentityUserLogin<TUser, TKey>> Logins { get; set; }
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
         public string NormalizedUserName { get; set; }
