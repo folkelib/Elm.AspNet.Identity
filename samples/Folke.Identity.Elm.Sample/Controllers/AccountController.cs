@@ -2,10 +2,10 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Folke.Identity.Elm.Sample.Models;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Folke.Identity.Elm.Sample.Controllers
 {
@@ -159,7 +159,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = info.LoginProvider;
                 // REVIEW: handle case where email not in claims?
-                var email = info.ExternalPrincipal.FindFirstValue(ClaimTypes.Email);
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
             }
         }
@@ -171,7 +171,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
         {
-            if (User.IsSignedIn())
+            if (SignInManager.IsSignedIn(User))
             {
                 return RedirectToAction("Index", "Manage");
             }
@@ -249,7 +249,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
                 await MessageServices.SendEmailAsync(model.Email, "Reset Password",
                     "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
                 ViewBag.Link = callbackUrl;
@@ -364,7 +364,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
                 await MessageServices.SendSmsAsync(await UserManager.GetPhoneNumberAsync(user), message);
             }
 
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
@@ -420,12 +420,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
-
-        private async Task<ApplicationUser> GetCurrentUserAsync()
-        {
-            return await UserManager.FindByIdAsync(HttpContext.User.GetUserId());
-        }
-
+        
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

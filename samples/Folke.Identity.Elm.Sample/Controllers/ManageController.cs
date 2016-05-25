@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Folke.Identity.Elm.Sample.Models;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Folke.Identity.Elm.Sample.Controllers
@@ -311,7 +311,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
         {
             // Request a redirect to the external login provider to link a login for the current user
             var redirectUrl = Url.Action("LinkLoginCallback", "Manage");
-            var properties = SignInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, User.GetUserId());
+            var properties = SignInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, UserManager.GetUserId(User));
             return new ChallengeResult(provider, properties);
         }
 
@@ -325,7 +325,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
             {
                 return View("Error");
             }
-            var info = await SignInManager.GetExternalLoginInfoAsync(User.GetUserId());
+            var info = await SignInManager.GetExternalLoginInfoAsync(UserManager.GetUserId(User));
             if (info == null)
             {
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
@@ -347,7 +347,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
 
         private async Task<bool> HasPhoneNumber()
         {
-            var user = await UserManager.FindByIdAsync(User.GetUserId());
+            var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
             if (user != null)
             {
                 return user.PhoneNumber != null;
@@ -369,7 +369,7 @@ namespace Folke.Identity.Elm.Sample.Controllers
 
         private async Task<ApplicationUser> GetCurrentUserAsync()
         {
-            return await UserManager.FindByIdAsync(HttpContext.User.GetUserId());
+            return await UserManager.FindByIdAsync(UserManager.GetUserId(HttpContext.User));
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

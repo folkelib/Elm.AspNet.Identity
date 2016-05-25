@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Folke.Elm;
 using Folke.Elm.Fluent;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Folke.Identity.Elm
 {

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Folke.Identity.Elm.Sample.Controllers
 {
