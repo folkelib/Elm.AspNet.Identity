@@ -510,7 +510,7 @@ namespace Folke.Identity.Elm
             {
                 throw new ArgumentException("roleName");
             }
-            var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.Name == roleName).SingleOrDefaultAsync();
+            var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.NormalizedName == roleName).SingleOrDefaultAsync();
             if (roleEntity == null)
             {
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, "Role {0} not found", roleName));
@@ -538,7 +538,7 @@ namespace Folke.Identity.Elm
             {
                 throw new ArgumentException(nameof(roleName));
             }
-            var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where((r => r.Name == roleName)).SingleOrDefaultAsync();
+            var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.NormalizedName == roleName).SingleOrDefaultAsync();
             if (roleEntity != null)
             {
                 var userRole = await connection.SelectAllFrom<IdentityUserRole<TUser, TKey>>().Where(r => roleEntity == r.Role && r.User == user).SingleOrDefaultAsync();
