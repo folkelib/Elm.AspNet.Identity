@@ -1,6 +1,14 @@
-﻿namespace Folke.Identity.Elm.Sample.Models
+﻿using System;
+
+namespace Folke.Identity.Elm.Sample.Models
 {
-    public class ApplicationUser : IdentityUser<ApplicationUser, string> { }
+    public class ApplicationUser : IdentityUser<ApplicationUser, string>
+    {
+        public ApplicationUser()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+    }
 
     public class IdentityDbContextOptions
     {

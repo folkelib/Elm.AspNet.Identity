@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0-*",
+  "version": "1.2.0-*",
   "description": "Microsoft.AspNet.Identity stores implementation for Folke.Elm",
   "authors": [ "Sidoine" ],
   "packOptions": {
@@ -8,20 +8,20 @@
     "licenseUrl": "http://opensource.org/licenses/MIT"
   },
     "dependencies": {
-      "Folke.Elm": "1.2.0-beta-*",
-      "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final"
+      "Folke.Elm": "1.2.0-*",
+      "Microsoft.AspNetCore.Identity": "1.0.0"
     },
   "frameworks": {
     "net451": { },
     "netstandard1.5": {
       "imports": [ "dnxcore50", "portable-net45+win8" ],
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-rc2-24027",
-        "System.Collections": "4.0.11-rc2-24027",
-        "System.Linq": "4.1.0-rc2-24027",
-        "System.Runtime": "4.1.0-rc2-24027",
-        "System.Threading": "4.0.11-rc2-24027",
-        "System.ComponentModel.TypeConverter": "4.0.1-rc2-24027"
+        "Microsoft.CSharp": "4.0.1",
+        "System.Collections": "4.0.11",
+        "System.Linq": "4.1.0",
+        "System.Runtime": "4.1.0",
+        "System.Threading": "4.0.11",
+        "System.ComponentModel.TypeConverter": "4.1.0"
       }
     }
   }
