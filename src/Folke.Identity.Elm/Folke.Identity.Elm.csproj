@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Microsoft.AspNet.Identity stores implementation for Folke.Elm</Description>
+    <VersionPrefix>1.3.0</VersionPrefix>
+    <Authors>Sidoine</Authors>
+    <TargetFrameworks>netstandard1.6</TargetFrameworks>
+    <AssemblyName>Folke.Identity.Elm</AssemblyName>
+    <PackageId>Folke.Identity.Elm</PackageId>
+    <PackageProjectUrl>https://github.com/folkelib/Folke.Identity.Elm</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.0.2" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" />
+    <PackageReference Include="Folke.Elm">
+      <Version>1.4.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

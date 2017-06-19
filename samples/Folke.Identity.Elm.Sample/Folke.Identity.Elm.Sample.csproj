@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <Description>A sample project for Folke.Identity.Elm</Description>
+    <VersionPrefix>1.2.0</VersionPrefix>
+    <Authors>Sidoine</Authors>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Folke.Identity.Elm.Sample</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Folke.Identity.Elm.Sample</PackageId>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Folke.Identity.Elm\Folke.Identity.Elm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Folke.Elm.Sqlite" Version="1.4.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.WebListener" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
