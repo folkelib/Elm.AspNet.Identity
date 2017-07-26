@@ -39,7 +39,7 @@ namespace Folke.Identity.Elm
         public static void UpdateIdentityUserSchema<TKey>(this IFolkeConnection folkeConnection)
             where TKey: IEquatable<TKey>
         {
-            folkeConnection.CreateOrUpdateTable<IdentityUser< TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUser<TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityUserClaim<IdentityUser<TKey>, TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityUserLogin<IdentityUser<TKey>, TKey>>();
         }
@@ -58,6 +58,16 @@ namespace Folke.Identity.Elm
             where TUser: IdentityUser<TUser, TKey>
         {
             folkeConnection.CreateOrUpdateTable<IdentityRole<TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityUserRole<TUser, TKey>>();
+            folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<TKey>>();
+        }
+
+        public static void UpdateIdentityRoleSchema<TKey, TUser, TRole>(this IFolkeConnection folkeConnection)
+            where TKey : IEquatable<TKey>
+            where TUser : IdentityUser<TUser, TKey>
+            where TRole : IdentityRole<TKey>, new()
+        {
+            folkeConnection.CreateOrUpdateTable<TRole>();
             folkeConnection.CreateOrUpdateTable<IdentityUserRole<TUser, TKey>>();
             folkeConnection.CreateOrUpdateTable<IdentityRoleClaim<TKey>>();
         }

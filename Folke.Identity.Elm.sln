@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{517D7494-8879-473B-AC89-064FDB0FED90}"
 EndProject
@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Folke.Identity.Elm", "src\F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Folke.Identity.Elm.Sample", "samples\Folke.Identity.Elm.Sample\Folke.Identity.Elm.Sample.csproj", "{3E272030-342D-4292-B9E7-1FC40AB81864}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4B1C9999-CCDD-42CE-8734-A835750A6576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Folke.Identity.Elm.Tests", "test\Folke.Identity.Elm.Tests\Folke.Identity.Elm.Tests.csproj", "{2497173C-B2E3-40B5-B9A2-4C491518A55F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{3E272030-342D-4292-B9E7-1FC40AB81864}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E272030-342D-4292-B9E7-1FC40AB81864}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E272030-342D-4292-B9E7-1FC40AB81864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2497173C-B2E3-40B5-B9A2-4C491518A55F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2497173C-B2E3-40B5-B9A2-4C491518A55F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2497173C-B2E3-40B5-B9A2-4C491518A55F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2497173C-B2E3-40B5-B9A2-4C491518A55F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,5 +48,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{579509D0-86D2-467D-9361-4E926219DB08} = {517D7494-8879-473B-AC89-064FDB0FED90}
 		{3E272030-342D-4292-B9E7-1FC40AB81864} = {FE86147C-351A-4682-9A6F-9F38DF40606D}
+		{2497173C-B2E3-40B5-B9A2-4C491518A55F} = {4B1C9999-CCDD-42CE-8734-A835750A6576}
 	EndGlobalSection
 EndGlobal

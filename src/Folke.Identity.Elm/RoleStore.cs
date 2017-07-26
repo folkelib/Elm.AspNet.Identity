@@ -48,6 +48,7 @@ namespace Folke.Identity.Elm
         
         public virtual async Task<IdentityResult> CreateAsync(TRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
+            role.NormalizedName = role.Name.ToLowerInvariant();
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
             if (role == null)

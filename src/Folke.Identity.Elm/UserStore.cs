@@ -510,6 +510,7 @@ namespace Folke.Identity.Elm
             {
                 throw new ArgumentException("roleName");
             }
+            roleName = roleName.ToLowerInvariant();
             var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.NormalizedName == roleName).SingleOrDefaultAsync();
             if (roleEntity == null)
             {
@@ -538,6 +539,7 @@ namespace Folke.Identity.Elm
             {
                 throw new ArgumentException(nameof(roleName));
             }
+            roleName = roleName.ToLowerInvariant();
             var roleEntity = await connection.SelectAllFrom<IdentityRole<TKey>>().Where(r => r.NormalizedName == roleName).SingleOrDefaultAsync();
             if (roleEntity != null)
             {
@@ -601,7 +603,7 @@ namespace Folke.Identity.Elm
             return false;
         }
 
-        public async Task<IList<TUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        public async Task<IList<TUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken = default(CancellationToken))
         {
             cancellationToken.ThrowIfCancellationRequested();
             ThrowIfDisposed();
@@ -614,10 +616,9 @@ namespace Folke.Identity.Elm
 
             if (role != null)
             {
-                IdentityUserRole<TUser, TKey> userRole = null;
-                var list = await connection.Select<TUser>()
-                    .All().From().LeftJoin(x => userRole).On(x => x.Id.Equals(userRole.User.Id)).Where(x => userRole.Id.Equals(role.Id)).ToListAsync();
-                return list.ToList();
+                var list = await connection.Select<FolkeTuple<TUser, IdentityUserRole<TUser, TKey>>>()
+                    .All(x => x.Item0).From(x => x.Item0).LeftJoin(x => x.Item1).On(x => x.Item0 == x.Item1.User).Where(x => x.Item1.Role == role).ToListAsync();
+                return list.Select(x => x.Item0).ToList();
             }
             return new List<TUser>();
         }
