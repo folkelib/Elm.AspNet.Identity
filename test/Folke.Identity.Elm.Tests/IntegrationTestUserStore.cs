@@ -65,6 +65,29 @@ namespace Folke.Identity.Elm.Tests
             }
         }
 
+        [Fact]
+        public async void GetRolesAsync()
+        {
+            using (connection.BeginTransaction())
+            {
+                // Arrange
+                connection.UpdateIdentityRoleSchema<int, TestUser, TestRole>();
+                var userStore = CreateUserStore();
+                var user = new TestUser { UserName = "UserName" };
+                await userStore.CreateAsync(user);
+                var roleStore = new RoleStore<TestRole, int>(connection);
+                var role = new TestRole { Name = "Role" };
+                await roleStore.CreateAsync(role);
+                await userStore.AddToRoleAsync(user, role.Name);
+
+                // Act
+                IList<string> result = await userStore.GetRolesAsync(user);
+
+                // Assert
+                Assert.Equal(role.Name, result[0]);
+            }
+        }
+
         private UserStore<TestUser, int> CreateUserStore()
         {
             connection.UpdateIdentityUserSchema<int, TestUser>();

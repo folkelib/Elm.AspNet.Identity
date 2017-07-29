@@ -568,7 +568,6 @@ namespace Folke.Identity.Elm
             return
                 (await
                     connection.Select<IdentityUserRole<TUser, TKey>>()
-                        .Value(x => x.Role)
                         .Value(x => x.Role.Name)
                         .From()
                         .LeftJoinOnId(x => x.Role)
