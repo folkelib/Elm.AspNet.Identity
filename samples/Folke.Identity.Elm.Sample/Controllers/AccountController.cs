@@ -26,10 +26,10 @@ namespace Folke.Identity.Elm.Sample.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.LoginProviders = SignInManager.GetExternalAuthenticationSchemes().ToList();
+            ViewBag.LoginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             return View();
         }
 
