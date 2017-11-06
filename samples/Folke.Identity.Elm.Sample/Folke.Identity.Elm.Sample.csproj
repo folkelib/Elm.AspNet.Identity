@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Folke.Elm.Sqlite" Version="2.0.0.1" />
+    <PackageReference Include="Folke.Elm.Sqlite" Version="2.*" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.WebListener" Version="1.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
